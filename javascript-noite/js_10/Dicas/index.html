@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página de Motivação</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <h1>Motivação Diária</h1>
+    <button id="obterDica">Obter Dica</button>
+    <div id="dicaMotivacional"></div>
+
+    <script>
+      $(document).ready(function () {
+        $("#obterDica").click(function () {
+          $.ajax({
+            url: "https://api.adviceslip.com/advice",
+            type: "GET",
+            success: function (data) {
+              var dica = JSON.parse(data).slip.advice;
+              $("#dicaMotivacional").html("<p>" + dica + "</p>");
+            },
+            error: function () {
+              $("#dicaMotivacional").html(
+                "<p>Desculpe, algo deu errado. Tente novamente mais tarde.</p>"
+              );
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
